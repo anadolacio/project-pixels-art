@@ -42,19 +42,54 @@ function colorStorage () {
     }
    }
 
+   // Colors
 
-   function clearBoard () {
+   function changeFirstClass () {
+    let colorSelected = document.querySelectorAll(".color");
+    for (let i = 0; i < colorSelected.length; i += 1) {
+      if (i == 0) {
+        colorSelected[0].className += " selected";
+      } else {
+        colorSelected[i].className = "color";
+      }
+  }
+};
+
+
+function pickColor (event) {
+  let colorSelected = document.querySelectorAll(".color");
+  for (let i = 0; i < colorSelected.length; i += 1) {
+    if (colorSelected[i].className == "color selected" ) {
+      colorSelected[i].className = "color";
+    }
+  }
+  event.target.className += " selected";
+}
+
+
+let colorSelected = document.querySelectorAll(".color");
+for (let i = 0; i < colorSelected.length; i += 1) {
+      colorSelected[i].addEventListener("click", pickColor);
+};
+
+
+// Clear
+
     let buttonClear = document.getElementById("clear-board");
     buttonClear.addEventListener("click", () => {
       let boardPixel = document.querySelectorAll(".pixel")
-      boardPixel.style.backgroundColor = "white";
-    });
-   }
+      for (let i = 0; i < boardPixel; i += 1) {
+       boardPixel[i].style.backgroundColor = "white";
+    }
+  });
+
   
 // Call functions
 window.onload = function () {
   generateBoard();
   colorStorage();
-  clearBoard();
-}
+  changeFirstClass();
+
+};
+
 
