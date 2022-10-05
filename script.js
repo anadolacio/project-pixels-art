@@ -1,4 +1,3 @@
-window.onload = function () {
   // Button
   let buttonRandom = document.getElementById("button-random-color");
   
@@ -17,17 +16,21 @@ window.onload = function () {
   localStorage.setItem("colorPalette", JSON.stringify(colors));
   }
   });
-};
 
-storageColors();
+  // Board 
 
-// Storage
-
-function storageColors() {
-  let colorsSaved = JSON.parse(localStorage.getItem("colorPalette"));
-  let colorSelected = document.getElementsByClassName("color");
-    for (let i = 0; i < colorSelected.length; i += 1) {
-    colorSelected[i].style.backgroundColor = colorsSaved[i];
+  function generateBoard () {
+    let board = document.getElementById("pixel-board");
+    for (let i = 0; i < 25; i += 1) {
+      let boardPixel = document.createElement("div");
+      boardPixel.className = "pixel";
+      boardPixel.style.backgroundColor = "white";
+      boardPixel.style.border = "solid 1px black";
+      board.appendChild(boardPixel);
     }
+  }
+  
 
-};
+  generateBoard();
+
+
