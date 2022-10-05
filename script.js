@@ -41,8 +41,22 @@ function colorStorage () {
        board.appendChild(boardPixel);
     }
    }
+
+   function paintPixels () {
+    let board = document.getElementById("pixel-board");
+    let blackColor = document.getElementById("black");
+    blackColor.className = "color selected";
+    let colorSelected = document.querySelectorAll(".color");
+  }
+  
+
+   
+
   
 // Call functions
+window.onload = function () {
   generateBoard();
   colorStorage();
+  paintPixels();
+}
 
