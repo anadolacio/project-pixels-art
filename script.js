@@ -26,6 +26,9 @@
       boardPixel.className = "pixel";
       boardPixel.style.backgroundColor = "white";
       boardPixel.style.border = "solid 1px black";
+      boardPixel.style.width = "40px";
+      boardPixel.style.height = "40px";
+      boardPixel.style.display = "inline-block"
       board.appendChild(boardPixel);
     }
   }
