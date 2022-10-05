@@ -42,21 +42,19 @@ function colorStorage () {
     }
    }
 
-   function paintPixels () {
-    let board = document.getElementById("pixel-board");
-    let blackColor = document.getElementById("black");
-    blackColor.className = "color selected";
-    let colorSelected = document.querySelectorAll(".color");
-  }
-  
 
-   
-
+   function clearBoard () {
+    let buttonClear = document.getElementById("clear-board");
+    buttonClear.addEventListener("click", () => {
+      let boardPixel = document.querySelectorAll(".pixel")
+      boardPixel.style.backgroundColor = "white";
+    });
+   }
   
 // Call functions
 window.onload = function () {
   generateBoard();
   colorStorage();
-  paintPixels();
+  clearBoard();
 }
 
