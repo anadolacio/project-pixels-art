@@ -1,3 +1,4 @@
+
   // Button
   let buttonRandom = document.getElementById("button-random-color");
   
@@ -31,28 +32,29 @@ function colorStorage () {
   function generateBoard () {
   let board = document.getElementById("pixel-board");
     for (let i = 0; i < 25; i += 1) {
-       let boardPixel = document.createElement("div");
-       boardPixel.className = "pixel";
-       boardPixel.style.backgroundColor = "white";
-       boardPixel.style.border = "solid 1px black";
-       boardPixel.style.width = "40px";
-       boardPixel.style.height = "40px";
-       boardPixel.style.display = "inline-block"
-       board.appendChild(boardPixel);
+        let boardPixel = document.createElement("div");
+        boardPixel.className = "pixel";
+        boardPixel.style.backgroundColor = "white";
+        boardPixel.style.border = "solid 1px black";
+        boardPixel.style.width = "40px";
+        boardPixel.style.height = "40px";
+        boardPixel.style.display = "inline-block"
+        board.appendChild(boardPixel);
+      }
+
     }
-   }
+   
 
    // Colors
 
    function changeFirstClass () {
     let colorSelected = document.querySelectorAll(".color");
-    for (let i = 0; i < colorSelected.length; i += 1) {
-      if (i == 0) {
-        colorSelected[0].className += " selected";
-      } else {
+    colorSelected[0].className += " selected";
+      for (let i = 1; i < colorSelected.length; i += 1) {
+        if (colorSelected[i] === " selected") {
         colorSelected[i].className = "color";
       }
-  }
+    }
 };
 
 
@@ -64,21 +66,27 @@ function pickColor (event) {
     }
   }
   event.target.className += " selected";
-}
-
-
+};
 let colorSelected = document.querySelectorAll(".color");
 for (let i = 0; i < colorSelected.length; i += 1) {
       colorSelected[i].addEventListener("click", pickColor);
 };
 
 
+// // Paint
+function paintBox(event) {
+  const chosenColor = document.querySelector('.selected');
+    event.target.style.backgroundColor = chosenColor.style.backgroundColor;
+  };
+
+
 // Clear
 
-    let buttonClear = document.getElementById("clear-board");
+    let buttonClear = document.querySelector("#clear-board");
+
     buttonClear.addEventListener("click", () => {
       let boardPixel = document.querySelectorAll(".pixel")
-      for (let i = 0; i < boardPixel; i += 1) {
+      for (let i = 0; i < boardPixel.length; i += 1) {
        boardPixel[i].style.backgroundColor = "white";
     }
   });
@@ -90,6 +98,14 @@ window.onload = function () {
   colorStorage();
   changeFirstClass();
 
+
+  const borderPixel = document.querySelectorAll('.pixel');
+for (let i = 0; i < borderPixel.length; i += 1) {
+  borderPixel[i].addEventListener('click', paintBox);
 };
+
+}
+
+
 
 
