@@ -74,10 +74,16 @@ for (let i = 0; i < colorSelected.length; i += 1) {
 
 
 // // Paint
-function paintBox(event) {
-  const chosenColor = document.querySelector('.selected');
-    event.target.style.backgroundColor = chosenColor.style.backgroundColor;
-  };
+
+function paintBox (event) {
+  if (event.target.classList.contains("pixel")) {
+        const chosenColor = document.querySelector('.selected');
+        const paint = getComputedStyle(chosenColor);
+        event.target.style.backgroundColor = (paint.backgroundColor);
+      }
+};
+
+document.addEventListener("click", paintBox);
 
 
 // Clear
@@ -98,13 +104,7 @@ window.onload = function () {
   colorStorage();
   changeFirstClass();
 
-
-  const borderPixel = document.querySelectorAll('.pixel');
-for (let i = 0; i < borderPixel.length; i += 1) {
-  borderPixel[i].addEventListener('click', paintBox);
 };
-
-}
 
 
 
