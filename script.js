@@ -31,7 +31,8 @@ function colorStorage () {
 
   function generateBoard () {
   let board = document.getElementById("pixel-board");
-    for (let i = 0; i < 25; i += 1) {
+  let number = 25;
+    for (let i = 0; i < number; i += 1) {
         let boardPixel = document.createElement("div");
         boardPixel.className = "pixel";
         boardPixel.style.backgroundColor = "white";
@@ -113,7 +114,7 @@ document.addEventListener("click", paintBox);
     window.localStorage.setItem("pixelBoard", JSON.stringify(finishedBoard));
   }
 
-  function boardStorage () {
+  function boardStoragePainted () {
     let boardSaved = JSON.parse(window.localStorage.getItem("pixelBoard"));
     let boardPixel = document.querySelectorAll(".pixel");
     if (boardSaved != null) {
@@ -126,19 +127,19 @@ document.addEventListener("click", paintBox);
   // New board with min and max size
 
   let buttonGenerateBoard = document.querySelector("#generate-board");
-  buttonGenerateBoard.addEventListener("click",  () => {
-     let matrixNumber = document.getElementById("board-size").value;
-     if (matrixNumber == 0) {
+  buttonGenerateBoard.addEventListener("click",  function newBoard () {
+     let number = document.getElementById("board-size").value;
+     if (number == 0) {
       alert("Board inválido!"); 
      } else {
-      if (matrixNumber < 5) {
-         matrixNumber = 5;
-      } else if (matrixNumber > 50) {
-        matrixNumber = 50;
+      if (number < 5) {
+         number = 5;
+      } else if (number > 50) {
+        number = 50;
       }
-    };
+    }
         let board = document.getElementById("pixel-board");
-        for (let i = 0; i < ((matrixNumber * matrixNumber) - 25); i += 1) {
+        for (let i = 0; i < ((Math.pow(number,2)) - 25); i += 1) {
             let boardPixel = document.createElement("div");
             boardPixel.className = "pixel";
             boardPixel.style.backgroundColor = "white";
@@ -148,18 +149,37 @@ document.addEventListener("click", paintBox);
             boardPixel.style.display = "inline-block"
             board.appendChild(boardPixel);
           }
-      });
+          localStorage.setItem("boardSize", number); 
+       });
   
-  
+
+
+      function boardNewSizeStorage () {
+        let newBoardSaved = localStorage.getItem("boardSize");
+        if (newBoardSaved != null) {
+          let boardPixel = document.querySelectorAll(".pixel");
+          let board = document.getElementById("pixel-board");
+          for (let i = 0; i < ((Math.pow(newBoardSaved,2)) - 25); i += 1) {
+            let boardPixel = document.createElement("div");
+            boardPixel.className = "pixel";
+            boardPixel.style.backgroundColor = "white";
+            boardPixel.style.border = "solid 1px black";
+            boardPixel.style.width = "40px";
+            boardPixel.style.height = "40px";
+            boardPixel.style.display = "inline-block"
+            board.appendChild(boardPixel);
+          }
+      }
+    }
+ 
+
+     
+
 // Call functions
 window.onload = function () {
   generateBoard();
   colorStorage();
   changeFirstClass();
-  boardStorage();
-
+  boardStoragePainted();
+  boardNewSizeStorage();
 };
-
-
-
-
