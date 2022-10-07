@@ -123,7 +123,7 @@ document.addEventListener("click", paintBox);
     }
   }
 
-  // New board
+  // New board with min and max size
 
   let buttonGenerateBoard = document.querySelector("#generate-board");
   buttonGenerateBoard.addEventListener("click",  () => {
@@ -131,19 +131,24 @@ document.addEventListener("click", paintBox);
      if (matrixNumber == 0) {
       alert("Board inválido!"); 
      } else {
-      let board = document.getElementById("pixel-board");
-      for (let i = 0; i < ((matrixNumber * matrixNumber) - 25); i += 1) {
-          let boardPixel = document.createElement("div");
-          boardPixel.className = "pixel";
-          boardPixel.style.backgroundColor = "white";
-          boardPixel.style.border = "solid 1px black";
-          boardPixel.style.width = "40px";
-          boardPixel.style.height = "40px";
-          boardPixel.style.display = "inline-block"
-          board.appendChild(boardPixel);
-        }
-     }
-  });
+      if (matrixNumber < 5) {
+         matrixNumber = 5;
+      } else if (matrixNumber > 50) {
+        matrixNumber = 50;
+      }
+    };
+        let board = document.getElementById("pixel-board");
+        for (let i = 0; i < ((matrixNumber * matrixNumber) - 25); i += 1) {
+            let boardPixel = document.createElement("div");
+            boardPixel.className = "pixel";
+            boardPixel.style.backgroundColor = "white";
+            boardPixel.style.border = "solid 1px black";
+            boardPixel.style.width = "40px";
+            boardPixel.style.height = "40px";
+            boardPixel.style.display = "inline-block"
+            board.appendChild(boardPixel);
+          }
+      });
   
   
 // Call functions
