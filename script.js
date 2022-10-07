@@ -81,6 +81,8 @@ function paintBox (event) {
         const paint = getComputedStyle(chosenColor);
         event.target.style.backgroundColor = (paint.backgroundColor);
       }
+
+      savePaintedBoard();
 };
 
 document.addEventListener("click", paintBox);
@@ -97,12 +99,34 @@ document.addEventListener("click", paintBox);
     }
   });
 
+
+  //Board Saved
+
+  function savePaintedBoard () {
+    let boardPixel = document.querySelectorAll(".pixel")
+    let finishedBoard = [];
+    for (let i = 0; i < boardPixel.length; i += 1) {
+     finishedBoard.push(boardPixel[i].style.backgroundColor);
+    }
+    window.localStorage.setItem("pixelBoard", JSON.stringify(finishedBoard));
+  }
+
+  function boardStorage () {
+    let boardSaved = JSON.parse(window.localStorage.getItem("pixelBoard"));
+    let boardPixel = document.querySelectorAll(".pixel");
+    if (boardSaved != null) {
+       for (let i = 0; i < boardPixel.length; i += 1) {
+        boardPixel[i].style.backgroundColor = boardSaved[i];
+      }
+    }
+  }
   
 // Call functions
 window.onload = function () {
   generateBoard();
   colorStorage();
   changeFirstClass();
+  boardStorage();
 
 };
 
