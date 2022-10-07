@@ -41,8 +41,10 @@ function colorStorage () {
         boardPixel.style.display = "inline-block"
         board.appendChild(boardPixel);
       }
-
+      
     }
+   
+  
    
 
    // Colors
@@ -51,7 +53,7 @@ function colorStorage () {
     let colorSelected = document.querySelectorAll(".color");
     colorSelected[0].className += " selected";
       for (let i = 1; i < colorSelected.length; i += 1) {
-        if (colorSelected[i] === " selected") {
+        if (colorSelected[i] == " selected") {
         colorSelected[i].className = "color";
       }
     }
@@ -120,6 +122,29 @@ document.addEventListener("click", paintBox);
       }
     }
   }
+
+  // New board
+
+  let buttonGenerateBoard = document.querySelector("#generate-board");
+  buttonGenerateBoard.addEventListener("click",  () => {
+     let matrixNumber = document.getElementById("board-size").value;
+     if (matrixNumber == 0) {
+      alert("Board inválido!"); 
+     } else {
+      let board = document.getElementById("pixel-board");
+      for (let i = 0; i < ((matrixNumber * matrixNumber) - 25); i += 1) {
+          let boardPixel = document.createElement("div");
+          boardPixel.className = "pixel";
+          boardPixel.style.backgroundColor = "white";
+          boardPixel.style.border = "solid 1px black";
+          boardPixel.style.width = "40px";
+          boardPixel.style.height = "40px";
+          boardPixel.style.display = "inline-block"
+          board.appendChild(boardPixel);
+        }
+     }
+  });
+  
   
 // Call functions
 window.onload = function () {
