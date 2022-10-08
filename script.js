@@ -149,7 +149,7 @@ document.addEventListener("click", paintBox);
             boardPixel.style.display = "inline-block"
             board.appendChild(boardPixel);
           }
-          localStorage.setItem("boardSize", number); 
+          localStorage.setItem("boardSize", number);
        });
   
 
