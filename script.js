@@ -1,4 +1,8 @@
 
+let number;
+let board = document.getElementById("pixel-board");
+let buttonGenerateBoard = document.querySelector("#generate-board");
+
   // Button
   let buttonRandom = document.getElementById("button-random-color");
   
@@ -29,24 +33,57 @@ function colorStorage () {
 }
   // Board 
 
-  function generateBoard () {
-  let board = document.getElementById("pixel-board");
-  let number = 25;
-    for (let i = 0; i < number; i += 1) {
-        let boardPixel = document.createElement("div");
-        boardPixel.className = "pixel";
-        boardPixel.style.backgroundColor = "white";
-        boardPixel.style.border = "solid 1px black";
-        boardPixel.style.width = "40px";
-        boardPixel.style.height = "40px";
-        boardPixel.style.display = "inline-block"
-        board.appendChild(boardPixel);
-      }
       
+  function generateBoard () {
+     for (let i = 0; i < number; i += 1){
+      let breakLine = document.createElement("div");
+       board.appendChild(breakLine);
+         for (let j = 0; j < number; j += 1) {
+          boardPixel = document.createElement("div");
+          boardPixel.className = "pixel";
+          boardPixel.style.backgroundColor = "white";
+          boardPixel.style.border = "solid 1px black";
+          boardPixel.style.width = "40px";
+          boardPixel.style.height = "40px";
+          boardPixel.style.display = "inline-block"
+          board.appendChild(boardPixel);
+         }       
+   
     }
-   
-  
-   
+    };
+
+   function checkStorage() {
+    if (JSON.parse(window.localStorage.getItem("boardSize")) === null) {
+      number = 5;
+     } else {
+      number = JSON.parse(window.localStorage.getItem("boardSize"));
+    }
+    generateBoard();
+  };
+
+
+    
+ buttonGenerateBoard.addEventListener("click", function newBoard () {
+  let clearBoard = document.querySelectorAll(".pixel");
+  for (let i = 0; i < clearBoard.length; i += 1) {
+    board.removeChild(clearBoard[i]);
+  }
+  number = document.getElementById("board-size").value;
+  if (number == 0) {
+   alert("Board inválido!"); 
+  } else {
+   if (number < 5) {
+      number = 5;
+   } else if (number > 50) {
+     number = 50;
+   }
+ }
+
+ window.localStorage.setItem("boardSize", JSON.stringify(number));
+ checkStorage();
+
+ });
+
 
    // Colors
 
@@ -70,6 +107,7 @@ function pickColor (event) {
   }
   event.target.className += " selected";
 };
+
 let colorSelected = document.querySelectorAll(".color");
 for (let i = 0; i < colorSelected.length; i += 1) {
       colorSelected[i].addEventListener("click", pickColor);
@@ -124,62 +162,14 @@ document.addEventListener("click", paintBox);
     }
   }
 
-  // New board with min and max size
-
-  let buttonGenerateBoard = document.querySelector("#generate-board");
-  buttonGenerateBoard.addEventListener("click",  function newBoard () {
-     let number = document.getElementById("board-size").value;
-     if (number == 0) {
-      alert("Board inválido!"); 
-     } else {
-      if (number < 5) {
-         number = 5;
-      } else if (number > 50) {
-        number = 50;
-      }
-    }
-        let board = document.getElementById("pixel-board");
-        for (let i = 0; i < ((Math.pow(number,2)) - 25); i += 1) {
-            let boardPixel = document.createElement("div");
-            boardPixel.className = "pixel";
-            boardPixel.style.backgroundColor = "white";
-            boardPixel.style.border = "solid 1px black";
-            boardPixel.style.width = "40px";
-            boardPixel.style.height = "40px";
-            boardPixel.style.display = "inline-block"
-            board.appendChild(boardPixel);
-          }
-          localStorage.setItem("boardSize", number);
-       });
-  
-
-
-      function boardNewSizeStorage () {
-        let newBoardSaved = localStorage.getItem("boardSize");
-        if (newBoardSaved != null) {
-          let boardPixel = document.querySelectorAll(".pixel");
-          let board = document.getElementById("pixel-board");
-          for (let i = 0; i < ((Math.pow(newBoardSaved,2)) - 25); i += 1) {
-            let boardPixel = document.createElement("div");
-            boardPixel.className = "pixel";
-            boardPixel.style.backgroundColor = "white";
-            boardPixel.style.border = "solid 1px black";
-            boardPixel.style.width = "40px";
-            boardPixel.style.height = "40px";
-            boardPixel.style.display = "inline-block"
-            board.appendChild(boardPixel);
-          }
-      }
-    }
- 
 
      
 
 // Call functions
 window.onload = function () {
-  generateBoard();
   colorStorage();
+  checkStorage();
   changeFirstClass();
   boardStoragePainted();
-  boardNewSizeStorage();
+
 };
