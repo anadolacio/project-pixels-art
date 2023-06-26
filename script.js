@@ -70,7 +70,7 @@ function colorStorage () {
   }
   number = document.getElementById("board-size").value;
   if (number == 0) {
-   alert("Board inválido!"); 
+   alert("Board inválid!"); 
   } else {
    if (number < 5) {
       number = 5;
